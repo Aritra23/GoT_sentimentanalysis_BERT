@@ -16,10 +16,10 @@ import time
 # Authenticating Twitter API
 # Obtain your Twitter credentials from your twitter developer account
 
-access_token = "114010579-jAnTPiNwF9krPFR68yX61Qqtw2NluLs8dNQaoi7E"
-access_token_secret = "eude9xgmDMSvLIaylw2tNJTd0LXd2i7wfKZFA9zWKNqIp"
-consumer_key = "j2BhP2Q3LFCzpPQ5o0Xx4GuY7"
-consumer_secret = "vkcmHL1U71cpqdn1LBl7GY4cdJIkvFotKAyZeChIuHBoq5aQ2j"
+access_token = "114010579-IYZmCy1NL8QlBdBQdNakNKeYP19YiNX4FyZXfv7A"
+access_token_secret = "Qv36jLFxwsGTJwqnuT0EYGUFK9G2UQ9pfudUgzidYqKvO"
+consumer_key = "TO3MalYDBVqPmAwGuWpq4CAkV"
+consumer_secret = "Cdy2vlBrouMIwEU9pGKRdOv3SN8QgRZy6CHJu52Hs10e8l4piA"
 
 # Pass your twitter credentials to tweepy via its OAuthHandler
 
@@ -28,9 +28,10 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 # Initialise these variables:
-search_words = "#standwithhongkong OR #hkpolicestate OR #HKpoliceterrorist OR #standwithhk OR #hkpoliceterrorism"
-date_since = "2019-11-03"
-numTweets = 10
+search_words = "#DaenerysTargaryen OR #Khaleesi"
+date_since = "2019-02-03"
+dates_until = "2019-05-03"
+numTweets = 1000
 numRuns = 6
 
 
@@ -63,7 +64,7 @@ def scraptweets(search_words, date_since, numTweets, numRuns):
         # Collect tweets using the Cursor object
         # .Cursor() returns an object that you can iterate or loop over to access the data collected.
         # Each item in the iterator has various attributes that you can access to get information about each tweet
-        tweets = tweepy.Cursor(api.search, q=search_words, lang="en", since=date_since, tweet_mode='extended').items(
+        tweets = tweepy.Cursor(api.search, q=search_words, lang="en", since=date_since, until=dates_until, tweet_mode='extended').items(
             numTweets)
 
         # Store these tweets into a python list
@@ -131,7 +132,7 @@ def scraptweets(search_words, date_since, numTweets, numRuns):
 
     # Define working path and filename
     path = os.getcwd()
-    filename = path + '/data/' + to_csv_timestamp + '_sahkprotests_tweets.csv'
+    filename = path + '/data/' + to_csv_timestamp + '_DanaerysTargaryn_full_tweets.csv'
 
     # Store dataframe in csv with creation date timestamp
     db_tweets.to_csv(filename, index=False)
